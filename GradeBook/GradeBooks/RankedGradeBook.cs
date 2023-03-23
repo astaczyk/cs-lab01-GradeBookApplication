@@ -13,5 +13,31 @@ namespace GradeBook.GradeBooks
         {
             Type = GradeBookType.Ranked;
         }
+
+        public override char GetLetterGrade(double averageGrade)
+        {
+            if(Students.Count < 5) {
+                throw new InvalidOperationException(); }
+
+            int betterStudent = 0;
+            for(int i = 0; i< Students.Count; i++)
+            {
+                if (Students[i].AverageGrade > averageGrade)
+                    betterStudent++;
+            }
+
+            double topStudent = ((double)betterStudent/ (double)Students.Count) * 100;
+
+            if (topStudent < 20)
+                return 'A';
+            else if (topStudent < 40)
+                return 'B';
+            else if (topStudent < 60)
+                return 'C';
+            else if (topStudent < 80)
+                return 'D';
+            else
+                return 'F';
+        }
     }
 }
